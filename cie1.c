@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <omp.h>
 void swap(int *a, int *b) {
     int temp = *a;
     *a = *b;
@@ -38,16 +38,14 @@ int main() {
     for(int i=0; i<n; i++) {
         scanf("%d", &arr[i]);
     }
-    clock_t start = clock();
+    double start = omp_get_wtime();
     quickSort(arr, 0, n-1);
-    clock_t end = clock();
-    double time_taken = ((double)(end - start))/CLOCKS_PER_SEC;
+    double end = omp_get_wtime();
     printf("Sorted array:\n");
     for(int i=0; i<n; i++) {
         printf("%d ", arr[i]);
     }
-    printf("\n");
-    printf("Execution time for sorting: %f seconds\n", time_taken);
+    printf("\nExecution time for sorting: %f seconds\n", end - start);
     free(arr);
     return 0;
 }
